@@ -19,31 +19,7 @@
 									
 								<?php
 
-                                    if(isset($_POST['create_record'])){
-
-                                        $car_brand = mysqli_real_escape_string($connect,$_POST['car_brand']);
-                                        $car_model = mysqli_real_escape_string($connect,$_POST['car_model']);
-                                        $seven_pin = mysqli_real_escape_string($connect,$_POST['7_pin']);
-                                        $thirteen_pin = mysqli_real_escape_string($connect,$_POST['13_pin']);
-                                        $car_order = $_POST['car_order'];
-
-                                        $query = "INSERT INTO cars (car_brand, car_model, 7_pin, 13_pin, car_order) ";
-                                        $query .= "VALUES ('".$car_brand."', '".$car_model."', '".$seven_pin."', '".$thirteen_pin."', ".$car_order.") ";
-                                        $insert_car_query = mysqli_query($connect, $query);
-
-                                        if($insert_car_query){
-
-                                            echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
-                                            
-
-                                        }else{
-
-                                            die('QUERY FAILED '.mysqli_error($connect));
-                                            echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
-
-                                        }
-
-                                    }
+                                    insertRecord();
 
                                 ?>
                                       

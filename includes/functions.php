@@ -3,207 +3,58 @@
 SEO URL
 */
 
-function insertNewGroup(){
+function updateRecord(){
     global $connect;
     
-    if(isset($_POST['submit'])){
-    
-        $nazov = mysqli_real_escape_string($connect,$_POST['meno']);
-        $popis = mysqli_real_escape_string($connect,$_POST['popis']);
-    
-        $query_insert="INSERT INTO groups(meno,popis,menoBD,datum_pridania) VALUES('".$nazov."','".$popis."','".url_slug($nazov)."',CURDATE())";
-        $apply_insert=mysqli_query($connect,$query_insert);
-    
-        if($apply_insert){
-            echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
-	    }
-	    else{
-            echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
-        }
-    }
-}
+    if(isset($_POST['editCar'])){
 
-
-
-function checkPersonalNumber(){
-    global $connect;
-    $query = "SELECT osobne_cislo FROM employees";
-    $result = mysqli_query($connect,$query);
-    
-    while($row = mysqli_fetch_assoc($result)){
-        
-        if($row['osobne_cislo'] == $_POST['osobne_cislo']){
-            return true;
-        }
-        
-    }
-    
-    return false;
-}
-
-function editGroup(){
-
-    global $connect;
-    
-    $meno = mysqli_real_escape_string($connect,$_POST['meno']);
-    $popis = mysqli_real_escape_string($connect,$_POST['popis']);
-    
-    if(isset($_POST['editGroup'])){
-       $query = "UPDATE groups SET meno = '".$meno."', popis = '".$popis."', menoBD = '".url_slug($meno)."' WHERE id_skupiny = '".$_POST['id_skupiny']."'";
-        $result = mysqli_query($connect,$query);
-        
-        if($result){
-            echo "<script> location.href='index.php?modul=spravovat-skupiny/zaznamy'; </script>";
+        $update_car_id = $_POST['car_id'];
+        $update_brand = $_POST['car_brand'];
+        $update_model = $_POST['car_model'];
+        $seven_pin = $_POST['7_pin'];
+        $thirteen_pin = $_POST['13_pin'];
+        $update_order = $_POST['car_order'];
+        $query = "UPDATE cars SET car_brand = '".$update_brand."', car_model = '".$update_model."', 7_pin = '".$seven_pin."', 13_pin = '".$thirteen_pin."', car_order = ".$update_order." WHERE car_id = ".$update_car_id;
+        $update_query = mysqli_query($connect, $query);
+                                                    
+        if($update_query){
+            echo "<script> location.href='index.php?modul=spravovat-zaznamy'; </script>";
             echo '<div class="alert alert-success">Údaje boli zmenené.</div>';  
+            // header("Refresh:0");
         }else{
             echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
         }
+        
     }
     
 }
 
-
-function editUser(){
-
+function insertRecord(){
     global $connect;
     
-    $meno = mysqli_real_escape_string($connect,$_POST['meno']);
-    $priezvisko = mysqli_real_escape_string($connect,$_POST['priezvisko']);
-    $email = mysqli_real_escape_string($connect,$_POST['email']);
-    $heslo = mysqli_real_escape_string($connect,$_POST['heslo']);
-    $hash_odkaz=md5($heslo);
-    
-    if(isset($_POST['editUser'])){
-        $query = "UPDATE employees SET meno = '".$meno."', priezvisko = '".$priezvisko."', email = '".$email."', ldap = '".$_POST['ldap']."', aktivny = '".$_POST['active']."', heslo = '".$heslo."', hash_odkaz = '".$hash_odkaz."', menoBD = '".url_slug($meno)."', priezviskoBD = '".url_slug($priezvisko)."' WHERE osobne_cislo = '".$_POST['osobne_cislo']."'";
-        $result = mysqli_query($connect,$query);
-        
-        $allGroups=showAllGroups();
-        $groupsData=showUsersGroups();
-        $updatedGroups = explode(" ",$_POST['groups']);
-        $groupInserted = array();
-        array_push($groupInserted,true);
-        
-        foreach($allGroups as $ag) { 
-        
-            if(!in_array($ag,$groupsData) && in_array($ag,$updatedGroups)){
-                $query_group_insert ="INSERT INTO user_groups (osobne_cislo,id_skupiny,datum_pridania) VALUES ('".$_POST['osobne_cislo']."',   '".$ag."',CURDATE())";
-                $apply_insert_group = mysqli_query($connect,$query_group_insert);
-                
-                if($apply_insert_group){
-                    array_push($groupInserted,true);
-                }
-                
-            }elseif(in_array($ag,$groupsData) && !in_array($ag,$updatedGroups)){
-                $query_group_delete ="DELETE FROM user_groups WHERE osobne_cislo = '".$_POST['osobne_cislo']."' AND id_skupiny = '".$ag."'";
-                $apply_delete_group = mysqli_query($connect,$query_group_delete);
-                if($apply_delete_group){
-                    array_push($groupInserted,true);
-                }
-            }
+    if(isset($_POST['create_record'])){
+        $car_brand = mysqli_real_escape_string($connect,$_POST['car_brand']);
+        $car_model = mysqli_real_escape_string($connect,$_POST['car_model']);
+        $seven_pin = mysqli_real_escape_string($connect,$_POST['7_pin']);
+        $thirteen_pin = mysqli_real_escape_string($connect,$_POST['13_pin']);
+        $car_order = $_POST['car_order'];
+
+        $query = "INSERT INTO cars (car_brand, car_model, 7_pin, 13_pin, car_order) ";
+        $query .= "VALUES ('".$car_brand."', '".$car_model."', '".$seven_pin."', '".$thirteen_pin."', ".$car_order.") ";
+        $insert_car_query = mysqli_query($connect, $query);
+
+        if($insert_car_query){
             
-        }
-        
-        if($result && !in_array(false,$groupInserted)){
-            echo "<script> location.href='index.php?modul=spravovat-pouzivatelov/zaznamy'; </script>";
-            echo '<div class="alert alert-success">Údaje boli zmenené.</div>';  
-           // header("Refresh:0");
-        }else{
-            echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
-        }
-    }
-    
-}
-
-function insertToGroup(){
-    global $connect;
-    
-    if(isset($_POST['insertToGroup'])){
-        $query_group_insert ="INSERT INTO user_groups (osobne_cislo,id_skupiny,datum_pridania) VALUES ('".$_POST['osobne_cislo']."',   '".$_POST['id_skupiny']."',CURDATE())";
-        $apply_group_insert=mysqli_query($connect,$query_group_insert);
-        
-        if($apply_group_insert){
             echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
-	    }
-	    else{
-            echo '<div class="alert alert-danger">Údaje sa nepodarilo nzaznamenať.</div>';
+                                            
+        }else{
+
+            die('QUERY FAILED '.mysqli_error($connect));
+            echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
+
         }
-    }
-}
 
-
-
-function showUsersData(){
-    global $connect;
-    $query = "SELECT * FROM employees WHERE osobne_cislo = '".$_POST['osobne_cislo']."'";
-    $result = mysqli_query($connect,$query);
-    $row = mysqli_fetch_assoc($result);
-    return $row;
-}
-
-function showGroupsData(){
-    global $connect;
-    $query = "SELECT * FROM groups WHERE id_skupiny = '".$_POST['id_skupiny']."'";
-    $result = mysqli_query($connect,$query);
-    $row = mysqli_fetch_assoc($result);
-    return $row;
-}
-
-function showUsersGroups(){
-    global $connect;
-    $queryname="SELECT id_skupiny FROM user_groups WHERE osobne_cislo = '".$_POST['osobne_cislo']."'";
-    $apply_zaznamy = mysqli_query($connect, $queryname);
-    $allGroups = array();
-    while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
-        array_push($allGroups,$result_zaznamy['id_skupiny']);
-    }
-    return $allGroups;
-}
-
-function showAllGroups(){
-    global $connect;
-    $queryname="SELECT id_skupiny FROM groups";
-    $apply_zaznamy = mysqli_query($connect, $queryname);
-    $allGroups = array();
-    while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
-        array_push($allGroups,$result_zaznamy['id_skupiny']);
-    }
-    return $allGroups;
-}
-
-function deleteGroup(){
-    global $connect;
-    
-    if(isset($_POST['delete'])){    
-        
-       $queryUser = "DELETE FROM groups WHERE id_skupiny = '".$_POST['id_skupiny']."'";
-       $resultUser = mysqli_query($connect,$queryUser);
-       $queryUserGroup = "DELETE FROM user_groups WHERE id_skupiny = '".$_POST['id_skupiny']."'";
-       $resultUserGroup = mysqli_query($connect,$queryUserGroup);
-        
-            if(!$resultUser || !$resultUserGroup){
-                echo '<div class="alert alert-danger">Údaje sa nepodarilo vymazať.</div>';
-            }else{
-                echo '<div class="alert alert-success">Údaje boli úspešne vymazané.</div>';
-            }
-     
-    }
-}
-
-function deleteFromUserGroup(){
-     global $connect;
-    
-    if(isset($_POST['deleteFromUserGroup'])){    
-        
-       $queryUser = "DELETE FROM user_groups WHERE osobne_cislo = '".$_POST['osobne_cislo']."' AND id_skupiny='".$_POST['id_skupiny']."'";
-       $resultUser = mysqli_query($connect,$queryUser);
-        
-            if(!$resultUser){
-                echo '<div class="alert alert-danger">Údaje sa nepodarilo vymazať.</div>';
-            }else{
-                echo '<div class="alert alert-success">Údaje boli úspešne vymazané.</div>';
-            }
-     
-    }
+        }
 }
 
 function deleteCar(){
@@ -222,19 +73,6 @@ function deleteCar(){
         
     }
 }
-
-function randomPassword() {
-    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-    $pass = array(); //remember to declare $pass as an array
-    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-    for ($i = 0; $i < 8; $i++) {
-        $n = rand(0, $alphaLength);
-        $pass[] = $alphabet[$n];
-    }
-    return implode($pass); //turn the array into a string
-}
-
-
 
 function url_slug($str, $options = array()) {
 	// Make sure string is in UTF-8 and strip invalid UTF-8 characters

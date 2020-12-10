@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<product version="2" title="MQB" icon-filename=".autorun\autorun.ico" splash-duration="4000">
+  <base path=".." name=""/>
+  <volume name="Root"/>
+  <music filename="" loop="false"/>
+  <pages>
+    <page name="Start" main="true" textid="">
+      <document version="1">
+        <bounding-box x="0" y="0" width="650" height="900"/>
+        <content-box x="0" y="0" width="650" height="900"/>
+        <image unique="64805616" type="image" name="&lt;Background&gt;" coloured="true" rotation="0" visible="true">
+          <center x="312" y="390"/>
+          <size width="650" height="900"/>
+          <tags>
+            <background/>
+            <theme/>
+          </tags>
+          <scale-margins left="32" top="30" right="32" bottom="30" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+          <attachment-bitmap name="image0.jpg"/>
+        </image>
+        <text unique="64947000" type="text" name="7-polig / pin " coloured="true" rotation="0" visible="true" modified="true">
+          <center x="156.5" y="17"/>
+          <size width="109" height="20"/>
+          <attachment-richtextbuffer name="text1.xml"/>
+        </text>
+        <text unique="64946376" type="text" name="13-polig / pin " coloured="true" rotation="0" visible="true" modified="true">
+          <center x="461" y="17"/>
+          <size width="116" height="20"/>
+          <attachment-richtextbuffer name="text2.xml"/>
+        </text>
