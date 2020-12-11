@@ -118,7 +118,7 @@ if(empty($modul)){$modul="mod_404.php";}
                     <!-- BEGIN LOGO -->
                     <div class="page-logo">
                         <a href="">
-                            <img src="images/Logo-next.png" alt="logo" class="logo-default"  style="margin-top:0%; margin-left:-5%; padding-right:20px;"/> </a>
+                            <img height="50" src="images/Logos/Logo-next.png" alt="logo" class="logo-default"  style="margin-top:0%; margin-left:-5%; padding-right:20px;"/> </a>
                         <div class="menu-toggler sidebar-toggler" style="margin-left:-25%;">
                             <span></span>
                         </div>
@@ -139,30 +139,11 @@ if(empty($modul)){$modul="mod_404.php";}
                             
                             <!-- BEGIN USER LOGIN DROPDOWN -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-user">
-                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                   
-									<img class="img-circle" width="29" height="29" avatar="<?php echo $_SESSION['fullname'];?>">
-									
-                                    <span class="username username-hide-on-mobile"> <?php echo $_SESSION['fullname'];?> </span>
-                                    <i class="fa fa-angle-down"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
-                                    
-                                    <li>
-                                        <a href="?modul=logout">
-                                            <i class="icon-key"></i> Odhlásiť sa </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
                             <!-- END USER LOGIN DROPDOWN -->
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                            <li class="dropdown dropdown-quick-sidebar-toggler">
-                                <a href="javascript:;" class="dropdown-toggle">
-                                    <i class="icon-logout"></i>
-                                </a>
-                            </li>
+                            
                             <!-- END QUICK SIDEBAR TOGGLER -->
                         </ul>
                     </div>

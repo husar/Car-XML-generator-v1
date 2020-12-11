@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<richtext version="1.0.0.0" xmlns="http://www.wxwidgets.org">
+  <paragraphlayout textcolor="#000000" fontsize="10" fontstyle="90" fontweight="90" fontunderlined="0" fontface="Arial" alignment="0" leftindent="0" leftsubindent="0" rightindent="0" parspacingafter="0" parspacingbefore="0" linespacing="0" bulletstyle="0" bulletnumber="0" parstyle="Normal" tabs="">
+    <paragraph>
+      <text textcolor="#FFFFFF" fontsize="11" fontstyle="90" fontweight="92" fontunderlined="0" fontface="Arial">"7-polig / pin "</text>
+    </paragraph>
+  </paragraphlayout>
+</richtext>

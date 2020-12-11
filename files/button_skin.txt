@@ -1,0 +1,75 @@
+<skin type="buttonskin" id="blue_lines_large_button" unique="7432667595">
+            <states>
+              <hover name="hover">
+                <layers>
+                  <animation horzalign="0" vertalign="0" scaling-enabled="true">
+                    <content-margins left="0" top="0" right="0" bottom="0" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <scale-margins left="10" top="12" right="10" bottom="12" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <attachment-bitmap name="image3.png"/>
+                  </animation>
+                  <text horzalign="0.5" vertalign="0.5" halo-enabled="false">
+                    <content-margins left="7" top="6" right="8" bottom="6" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <font name="MS Shell Dlg 2" pointsize="9" style="90" weight="92" underlined="false"/>
+                    <color red="255" green="255" blue="255" alpha="255"/>
+                    <shadow-color red="0" green="0" blue="0" alpha="0"/>
+                    <shadow-rel-position x="0" y="0"/>
+                    <halo-color red="0" green="0" blue="0" alpha="0"/>
+                  </text>
+                </layers>
+              </hover>
+              <hover_low name="hover_low">
+                <layers/>
+              </hover_low>
+              <down name="down">
+                <layers>
+                  <animation horzalign="0" vertalign="0" scaling-enabled="true">
+                    <content-margins left="0" top="0" right="0" bottom="0" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <scale-margins left="10" top="12" right="10" bottom="12" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <attachment-bitmap name="image4.png"/>
+                  </animation>
+                  <text horzalign="0.5" vertalign="0.5" halo-enabled="false">
+                    <content-margins left="8" top="7" right="7" bottom="5" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <font name="MS Shell Dlg 2" pointsize="9" style="90" weight="92" underlined="false"/>
+                    <color red="255" green="255" blue="255" alpha="255"/>
+                    <shadow-color red="0" green="0" blue="0" alpha="0"/>
+                    <shadow-rel-position x="0" y="0"/>
+                    <halo-color red="0" green="0" blue="0" alpha="0"/>
+                  </text>
+                </layers>
+              </down>
+              <disabled name="disabled">
+                <layers>
+                  <animation horzalign="0" vertalign="0" scaling-enabled="true">
+                    <content-margins left="0" top="0" right="0" bottom="0" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <scale-margins left="10" top="12" right="10" bottom="12" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <attachment-bitmap name="image5.png"/>
+                  </animation>
+                  <text horzalign="0.5" vertalign="0.5" halo-enabled="false">
+                    <content-margins left="7" top="6" right="8" bottom="6" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <font name="MS Shell Dlg 2" pointsize="9" style="90" weight="92" underlined="false"/>
+                    <color red="255" green="255" blue="255" alpha="255"/>
+                    <shadow-color red="208" green="208" blue="208" alpha="255"/>
+                    <shadow-rel-position x="1" y="1"/>
+                    <halo-color red="0" green="0" blue="0" alpha="0"/>
+                  </text>
+                </layers>
+              </disabled>
+              <normal name="normal">
+                <layers>
+                  <animation horzalign="0" vertalign="0" scaling-enabled="true">
+                    <content-margins left="0" top="0" right="0" bottom="0" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <scale-margins left="10" top="12" right="10" bottom="12" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <attachment-bitmap name="image6.png"/>
+                  </animation>
+                  <text horzalign="0.5" vertalign="0.5" halo-enabled="false">
+                    <content-margins left="7" top="6" right="8" bottom="6" left-factor="0" top-factor="0" right-factor="0" bottom-factor="0"/>
+                    <font name="MS Shell Dlg 2" pointsize="9" style="90" weight="92" underlined="false"/>
+                    <color red="255" green="255" blue="255" alpha="255"/>
+                    <shadow-color red="0" green="0" blue="0" alpha="0"/>
+                    <shadow-rel-position x="0" y="0"/>
+                    <halo-color red="0" green="0" blue="0" alpha="0"/>
+                  </text>
+                </layers>
+              </normal>
+            </states>
+          </skin>

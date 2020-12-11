@@ -1,0 +1,25 @@
+<text unique="64945128" type="text" name="11501017" coloured="true" rotation="0" visible="true" modified="true">
+          <center x="490" y="801"/>
+          <size width="71" height="20"/>
+          <attachment-richtextbuffer name="text7.xml"/>
+        </text>
+        <text unique="64939928" type="text" name="08.05.20" coloured="true" rotation="0" visible="true" modified="true">
+          <center x="560" y="801"/>
+          <size width="62" height="20"/>
+          <attachment-richtextbuffer name="text8.xml"/>
+        </text>
+        <text unique="64940344" type="text" name="Freischaltung / Codierung Set up trailer operation" coloured="true" rotation="0" visible="true" modified="true">
+          <center x="130.5" y="768"/>
+          <size width="161" height="28"/>
+          <attachment-richtextbuffer name="text11.xml"/>
+        </text>
+        <state-button unique="64908104" type="aed-state-button-action" name="D / UK" coloured="true" rotation="0" visible="true" modified="true" label="D / UK" hint="">
+          <center x="124.5" y="798"/>
+          <size width="105" height="21"/>
+          <tags>
+            <button/>
+            <small/>
+          </tags>
+          <skin unique="7432667595" type="buttonskin"/>
+          <action e-mail="" website="" command="" params="" language="" page="" folder="" file="87501889 - 12-21500601 CD codierung.pdf" valid="true" type="run-file" change-page="go-back"/>
+        </state-button>

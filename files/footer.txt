@@ -1,0 +1,12 @@
+<xdata>
+          <layout-rect type="rect">
+            <value x="51.4808" y="33.6" width="518.296" height="267.68"/>
+          </layout-rect>
+          <theme type="string" value="Default"/>
+        </xdata>
+      </document>
+    </page>
+  </pages>
+  <clientsize width="620" height="840"/>
+  <translations/>
+</product>
