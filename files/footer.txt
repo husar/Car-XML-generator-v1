@@ -7,6 +7,3 @@
       </document>
     </page>
   </pages>
-  <clientsize width="620" height="840"/>
-  <translations/>
-</product>

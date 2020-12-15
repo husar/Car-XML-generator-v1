@@ -17,7 +17,7 @@ include "../connect.ini.php";
         }
         
         /*Vlozi vsetok text na zaciatok suboru product.xml zo suboru header.txt*/
-        $file_name = "files/header.txt";
+        $file_name = "files/header_first_part.txt";
         
         if($handle = fopen($file_name, 'r')){
         
@@ -28,15 +28,32 @@ include "../connect.ini.php";
         }
         
         $file = 'files/downloads/product.xml';
-        $current = file_get_contents("files/header.txt");
+        $current = file_get_contents("files/header_first_part.txt");
+        $y_start_position_brand = 52;
+        $distance_between_brand_y_positions = 25;
+        $query = "SELECT COUNT(*) AS count_of_cars FROM cars";
+        $count_of_cars_query = mysqli_query($connect,$query);
+        $row = mysqli_fetch_assoc($count_of_cars_query);
+        $car_count = $row['count_of_cars'];
+        $current .= "<center x=\"312\" y=\"".(($y_start_position_brand+($car_count*$distance_between_brand_y_positions)+185)/2)."\"/>
+        <size width=\"650\" height=\"".($y_start_position_brand+($car_count*$distance_between_brand_y_positions)+185)."\"/>";
+        
+        $file_name = "files/header_second_part.txt";
+        
+                if($handle = fopen($file_name, 'r')){
+
+                    $current .= "\n".fread($handle,filesize($file_name));
+            
+                    fclose($handle);
+
+                }
+        
         /*Vyberie z databazy vsetky auta */
         $query = "SELECT * FROM cars ORDER BY car_order";
         $selected_cars = mysqli_query($connect, $query);
         /*Vypocet pozicii tlacidiel a textu*/
         $index=0;
-        $y_start_position_brand = 42;
-        $distance_between_brand_y_positions = 25;
-        $y_start_position_model = 41;
+        $y_start_position_model = 51;
         $distance_between_model_y_positions = 27;
         /*vytvorenie zatial prazdneho, koncoveho zip suboru, ktory je stiahnuty*/
         $zip = new ZipArchive();
@@ -138,15 +155,31 @@ include "../connect.ini.php";
         }
         
         /*doplnenie zvysku dat z danych suborov do suboru product.xml*/
-        $file_name = "files/text_and_language_button.txt";
-        
-        if($handle = fopen($file_name, 'r')){
-
-            $current .= "\n".fread($handle,filesize($file_name));
-            
-            fclose($handle);
-
-        }
+        $current .= "<text unique=\"64945128\" type=\"text\" name=\"11501017\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
+          <center x=\"490\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
+          <size width=\"71\" height=\"20\"/>
+          <attachment-richtextbuffer name=\"text7.xml\"/>
+        </text>";
+        $current .= "<text unique=\"64939928\" type=\"text\" name=\"08.05.20\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
+          <center x=\"560\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
+          <size width=\"62\" height=\"20\"/>
+          <attachment-richtextbuffer name=\"text8.xml\"/>
+        </text>";
+        $current .= "<text unique=\"64940344\" type=\"text\" name=\"Freischaltung / Codierung Set up trailer operation\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
+          <center x=\"130.5\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
+          <size width=\"161\" height=\"28\"/>
+          <attachment-richtextbuffer name=\"text11.xml\"/>
+        </text>";
+        $current .= "<state-button unique=\"64908104\" type=\"aed-state-button-action\" name=\"D / UK\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\" label=\"D / UK\" hint=\"\">
+          <center x=\"124.5\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+100)."\"/>
+          <size width=\"105\" height=\"21\"/>
+          <tags>
+            <button/>
+            <small/>
+          </tags>
+          <skin unique=\"7432667595\" type=\"buttonskin\"/>
+          <action e-mail=\"\" website=\"\" command=\"\" params=\"\" language=\"\" page=\"\" folder=\"\" file=\"87501889 - 12-21500601 CD codierung.pdf\" valid=\"true\" type=\"run-file\" change-page=\"go-back\"/>
+        </state-button>";
         
         $file_name = "files/footer.txt";
         
@@ -157,6 +190,9 @@ include "../connect.ini.php";
                     fclose($handle);
 
                 }
+        $current .= "  <clientsize width=\"620\" height=\"".($y_start_position_brand+($car_count*$distance_between_brand_y_positions)+185)."\"/>
+  <translations/>
+</product>";
         
         /*vlozenie celeho spojeneho stringu do suboru product.xml*/
         file_put_contents($file, $current);

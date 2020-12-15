@@ -1,17 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<product version="2" title="MQB" icon-filename=".autorun\autorun.ico" splash-duration="4000">
-  <base path=".." name=""/>
-  <volume name="Root"/>
-  <music filename="" loop="false"/>
-  <pages>
-    <page name="Start" main="true" textid="">
-      <document version="1">
-        <bounding-box x="0" y="0" width="650" height="900"/>
-        <content-box x="0" y="0" width="650" height="900"/>
-        <image unique="64805616" type="image" name="&lt;Background&gt;" coloured="true" rotation="0" visible="true">
-          <center x="312" y="390"/>
-          <size width="650" height="900"/>
-          <tags>
+<tags>
             <background/>
             <theme/>
           </tags>
