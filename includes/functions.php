@@ -2,6 +2,74 @@
 /*
 SEO URL
 */
+function updateCD(){
+    global $connect;
+    
+    if(isset($_POST['editCD'])){
+
+        $update_cd_id = $_POST['cd_id'];
+        $update_name = $_POST['cd_name'];
+        $update_number = $_POST['cd_number'];
+        $update_date = $_POST['cd_date'];
+        $update_codierung = $_POST['codierung'];
+        $query = "UPDATE cd SET cd_name = '".$update_name."', cd_number = '".$update_number."', cd_date = '".$update_date."', codierung = ".$update_codierung." WHERE cd_id = ".$update_cd_id;
+        $update_query = mysqli_query($connect, $query);
+                                                    
+        if($update_query){
+            echo "<script> location.href='index.php?modul=spravovat-cd'; </script>";
+            echo '<div class="alert alert-success">Údaje boli zmenené.</div>';  
+            // header("Refresh:0");
+        }else{
+            echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
+        }
+        
+    }
+    
+}
+
+function deleteCD(){
+    global $connect;
+    
+    if(isset($_POST['delete'])){    
+        
+       $query = "DELETE FROM cd WHERE cd_id = '".$_POST['cd_id']."'";
+       $delete_cd_query = mysqli_query($connect,$query);
+        
+            if(!$delete_cd_query){
+                echo '<div class="alert alert-danger">Údaje sa nepodarilo vymazať.</div>';
+            }else{
+                echo '<div class="alert alert-success">Údaje boli úspešne vymazané.</div>';
+            }
+        
+    }
+}
+
+function insertCD(){
+    global $connect;
+    
+    if(isset($_POST['create_cd'])){
+        $cd_name = mysqli_real_escape_string($connect,$_POST['cd_name']);
+        $cd_number = mysqli_real_escape_string($connect,$_POST['cd_number']);
+        $cd_date = $_POST['cd_date'];
+        $codierung = isset($_POST['codierung'])?1:0;
+
+        $query = "INSERT INTO cd (cd_name, cd_number, cd_date, codierung) ";
+        $query .= "VALUES ('".$cd_name."','".$cd_number."','".$cd_date."',".$codierung.") ";
+        $insert_cd_query = mysqli_query($connect, $query);
+
+        if($insert_cd_query){
+            
+            echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
+                                            
+        }else{
+
+            die('QUERY FAILED '.mysqli_error($connect));
+            echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
+
+        }
+
+        }
+}
 
 function updateRecord(){
     global $connect;
@@ -19,8 +87,8 @@ function updateRecord(){
                                                     
         if($update_query){
             echo "<script> location.href='index.php?modul=spravovat-zaznamy'; </script>";
-            echo '<div class="alert alert-success">Údaje boli zmenené.</div>';  
-            // header("Refresh:0");
+            echo '<div class="alert alert-success">Údaje boli zmenené.</div>';
+            
         }else{
             echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
         }
@@ -37,6 +105,7 @@ function insertRecord(){
         $car_model = mysqli_real_escape_string($connect,$_POST['car_model']);
         $seven_pin = mysqli_real_escape_string($connect,$_POST['7_pin']);
         $thirteen_pin = mysqli_real_escape_string($connect,$_POST['13_pin']);
+        $cd_id = $_POST['car_cd'];
         $car_order = $_POST['car_order'];
 
         $query = "INSERT INTO cars (car_brand, car_model, 7_pin, 13_pin, car_order) ";
@@ -45,8 +114,19 @@ function insertRecord(){
 
         if($insert_car_query){
             
-            echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
+            if($cd_id != ""){
+                
+                $query = "SELECT car_id from cars WHERE car_brand='".$car_brand."' AND car_model='".$car_model."' AND 7_pin='".$seven_pin."' AND 13_pin='".$thirteen_pin."' AND car_order=".$car_order." ";
+                $selected_id = mysqli_query($connect, $query);
+                $row = mysqli_fetch_array($selected_id);
+                $query = "INSERT INTO cd_cars (car_id, cd_id) ";
+                $query .= "VALUES ('".$row['car_id']."', '".$cd_id."') ";
+                $insert_car_cd_query = mysqli_query($connect, $query);
+                
+            }
                                             
+            echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
+            
         }else{
 
             die('QUERY FAILED '.mysqli_error($connect));

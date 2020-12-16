@@ -31,7 +31,11 @@ include "../connect.ini.php";
         $current = file_get_contents("files/header_first_part.txt");
         $y_start_position_brand = 52;
         $distance_between_brand_y_positions = 25;
-        $query = "SELECT COUNT(*) AS count_of_cars FROM cars";
+        if($_GET['cd_id']!=""){
+            $query = "SELECT COUNT(*) AS count_of_cars FROM cars INNER JOIN cd_cars ON cars.car_id = cd_cars.car_id WHERE cd_cars.cd_id =".$_GET['cd_id']." ORDER BY cars.car_order";
+        }else{
+            $query = "SELECT COUNT(*) AS count_of_cars FROM cars";
+        }
         $count_of_cars_query = mysqli_query($connect,$query);
         $row = mysqli_fetch_assoc($count_of_cars_query);
         $car_count = $row['count_of_cars'];
@@ -49,7 +53,11 @@ include "../connect.ini.php";
                 }
         
         /*Vyberie z databazy vsetky auta */
-        $query = "SELECT * FROM cars ORDER BY car_order";
+        if($_GET['cd_id']!=""){
+            $query = "SELECT * FROM cars INNER JOIN cd_cars ON cars.car_id = cd_cars.car_id WHERE cd_cars.cd_id =".$_GET['cd_id']." ORDER BY cars.car_order";
+        }else{
+            $query = "SELECT * FROM cars ORDER BY car_order";
+        }
         $selected_cars = mysqli_query($connect, $query);
         /*Vypocet pozicii tlacidiel a textu*/
         $index=0;
@@ -57,7 +65,7 @@ include "../connect.ini.php";
         $distance_between_model_y_positions = 27;
         /*vytvorenie zatial prazdneho, koncoveho zip suboru, ktory je stiahnuty*/
         $zip = new ZipArchive();
-        $filename = "files/downloads/content.zip";
+        $filename = "files/downloads/content.aed";
 
         if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
             
@@ -204,7 +212,7 @@ include "../connect.ini.php";
         
 ?>
    <!--tlacidlo na stiahnutie archivu-->
-   <a href="files/downloads/content.zip" download class="btn" title="Download"><button class="btn"  name="download">Stiahnuť XML</button></a> 
+   <a href="files/downloads/content.aed" download class="btn" title="Download"><button class="btn"  name="download">Stiahnuť XML</button></a> 
    
    <?php
         

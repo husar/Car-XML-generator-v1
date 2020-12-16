@@ -10,13 +10,57 @@ include "functions.php";
 <?php include "includes/edit_car.php" ?>
 
  <div class="portlet box blue">
+                                                                
+    <div class="portlet box blue ">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-search"></i> Vyhľadávanie
+											</div>
+                                      
+                                    </div>
+                                    
+                                    <div class="portlet-body form">
+                                        <form class="form-horizontal" role="form" method="post" >
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    
+                                                    <input type="hidden" name="modul" value="spravovat-zaznamy">	
+													
+                                                    <div class="col-md-2">
+                                                    <?php
+                                                    $query_zaznamy="SELECT * FROM cd";
+												    $apply_zaznamy=mysqli_query($connect,$query_zaznamy);
+												    ?>
+                                                    Vybrať CD:
+                                                    <select name="cd_id" class="form-control">
+                                                        <option value=""></option>
+                                                        <?php while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){?>
+                                                        <option value="<?php echo $result_zaznamy['cd_id'] ?>" <?php echo ($skupina ==$result_zaznamy['cd_name'])? 'selected':'' ?>><?php echo $result_zaznamy['cd_name'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    </div>
+                                                </div>
+												
+                                               
+                                            </div>
+                                            <div class="form-actions right1">
+                                                
+                                                <button type="submit" class="btn blue" name="search">Vyhľadať</button>
+                                            </div>
+        
+                                        </form>
+                                    </div>
+                                    
+                                   
+                                    
+                                </div>
                                                                  
                                <!-- //****************//
                                     //*Bez*parametrov*//
                                     //****************//   -->
                                     <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-calendar"></i> Záznamy</div>
+                                                <i class="fa fa-tasks"></i> Záznamy</div>
                                             <div class="tools">
                                                 <a href="javascript:;" class="collapse" data-original-title="Zbaliť/Rozbaliť" title=""> </a>
                                             </div>
@@ -37,13 +81,24 @@ include "functions.php";
                                                           <th>7pin</th>
                                                           <th>13pin</th>
                                                           <th>Poradie</th>
+                                                          <th>Odobrať z CD</th>
+                                                          <th>Pridať na CD</th>
                                                           <th>Funkcie</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 												<?php						
 				
-												$query_zaznamy="SELECT * FROM cars ORDER BY car_order";
+                                                if(isset($_POST['search']) && $_POST['cd_id']!=""){
+                                                   
+                                                    $query_zaznamy="SELECT * FROM cars INNER JOIN cd_cars ON cars.car_id = cd_cars.car_id WHERE cd_id =".$_POST['cd_id']." ORDER BY car_order";
+                                                    
+                                                }else{
+                                                    
+                                                    $query_zaznamy="SELECT * FROM cars ORDER BY car_order";
+                                                    
+                                                }  
+                                                    
 												$apply_zaznamy=mysqli_query($connect,$query_zaznamy);
 												while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
 												?>
@@ -54,10 +109,26 @@ include "functions.php";
 														<td> <?php echo $result_zaznamy['7_pin']; ?></td>
 														<td> <?php echo $result_zaznamy['13_pin']; ?></td>
 														<td> <?php echo $result_zaznamy['car_order']; ?></td>
+                                                       
+                                                           <?php
+                                                                
+                                                                $cds = "";
+                                                                $query = "SELECT * FROM cd INNER JOIN cd_cars ON cd.cd_id = cd_cars.cd_id WHERE car_id =".$result_zaznamy['car_id']." ";
+                                                                $selected_cds = mysqli_query($connect, $query);
+                                                                while($row = mysqli_fetch_array($selected_cds)){
+                                                                    
+                                                                    $cds .= $row['cd_name'].", ";
+                                                                    
+                                                                }
+                                                    
+                                                            ?>
+                                                       
+                                                        <td><?php echo $cds; ?></td>
+                                                        <td></td>
 												        <td>
                                                             <form method="post"> 
                                                                 
-                                                                <input type="hidden" name="osobne_cislo" value="<?php echo $result_zaznamy['osobne_cislo'] ?>">
+                                                                <input type="hidden" name="car_id" value="<?php echo $result_zaznamy['car_id'] ?>">
                                                                 <button type="button" class="btn"  title="Zmazať záznam" data-toggle="modal" data-target="#deleteModal" name="forDelete"   onclick="location.href='index.php?modul=spravovat-zaznamy&car_idFD=<?php echo $result_zaznamy['car_id'] ?>';"><i class="fa fa-trash" ></i></button>
                                                                 
                                                                 <button class="btn" type="submit" title="Upraviť záznam" formaction="index.php?modul=spravovat-zaznamy&edit_car_id=<?php echo $result_zaznamy['car_id'] ?>"><i class="fa fa-edit"></i></button>
@@ -76,7 +147,7 @@ include "functions.php";
                                         </div>                                       
 									
                                       
-                                        <button type="button" class="btn"  title="Zmazať záznam" data-toggle="modal" data-target="#deleteModal" name="generateXML" onclick="location.href='index.php?modul=spravovat-zaznamy&action=generateXML'">Generovať XML</button>
+                                        <button type="button" class="btn"  title="Zmazať záznam" data-toggle="modal" data-target="#deleteModal" name="generateXML" onclick="location.href='index.php?modul=spravovat-zaznamy&action=generateXML&cd_id=<?php echo $_POST['cd_id'] ?>'">Generovať XML</button>
 
                                        
                                       <?php include "includes/generate_xml.php"; ?>

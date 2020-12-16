@@ -194,11 +194,16 @@ if(empty($modul)){$modul="mod_404.php";}
                             </li>
                                 <li class="nav-item  ">
                                         <a href="?modul=pridat-zaznam" class="nav-link ">
-                                            <i class="fa fa-car"></i><span class="title">Pridať záznam</span>
+                                            <i class="fa fa-car"></i><span class="title">Pridať vozidlo</span>
                                         </a>
-                                   </li>   								  							
+                                </li>
+                                <li class="nav-item  ">
+                                        <a href="?modul=pridat-cd" class="nav-link ">
+                                            <i class='fa fa-dot-circle-o'></i><span class="title">Pridať CD</span>
+                                        </a>
+                                </li>    								  							
 							
-									<li class="heading">
+				            <li class="heading">
                                 <h3 class="uppercase"><hr></h3>
                             </li>
 							<li class="heading">
@@ -206,9 +211,14 @@ if(empty($modul)){$modul="mod_404.php";}
                             </li>
                             <li class="nav-item  ">
                                         <a href="?modul=spravovat-zaznamy" class="nav-link ">
-                                            <i class="fa fa-tasks"></i><span class="title">Spravovať záznamy</span>
+                                            <i class="fa fa-tasks"></i><span class="title">Spravovať vozidlá</span>
                                         </a>
-                                   </li> 	   
+                            </li> 	
+                            <li class="nav-item  ">
+                                        <a href="?modul=spravovat-cd" class="nav-link ">
+                                            <i class="fa fa-files-o"></i><span class="title">Spravovať CD</span>
+                                        </a>
+                            </li>    
                           
                                 </ul>
                           

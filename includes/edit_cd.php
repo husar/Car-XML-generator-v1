@@ -1,28 +1,26 @@
 <?php
      
-                                        if(isset($_GET['edit_car_id'])){
+                                        if(isset($_GET['edit_cd_id'])){
                                             
                                             echo "<div class=\"portlet box blue\">";
                                             
-                                            $query = "SELECT * FROM cars WHERE car_id = ".$_GET['edit_car_id'];
-                                            $selected_car_edit = mysqli_query($connect,$query);
+                                            $query = "SELECT * FROM cd WHERE cd_id = ".$_GET['edit_cd_id'];
+                                            $selected_cd_edit = mysqli_query($connect,$query);
                                             
-                                            while($row = mysqli_fetch_assoc($selected_car_edit)){
+                                            while($row = mysqli_fetch_assoc($selected_cd_edit)){
                                                 
-                                                $car_id = $row['car_id'];
-                                                $car_brand = $row['car_brand'];
-                                                $car_model = $row['car_model'];
-                                                $seven_pin = $row['7_pin'];
-                                                $thirteen_pin = $row['13_pin'];
-                                                $car_order = $row['car_order'];
-                                                    
+                                                $cd_id = $row['cd_id'];
+                                                $cd_name = $row['cd_name'];
+                                                $cd_number = $row['cd_number'];
+                                                $cd_date = $row['cd_date'];
+                                                $codierung = $row['codierung'];                                                    
                                             }
                                             
                                     ?>
                                                     
                                               <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-car"></i> <?php echo $car_brand." ".$car_model ?></div>
+                                                <i class="fa fa-dot-circle-o"></i> <?php echo $cd_name ?></div>
                                             <div class="tools">
                                                 <a href="javascript:;" class="collapse" data-original-title="Zbaliť/Rozbaliť" title=""> </a>
                                             </div>
@@ -32,65 +30,53 @@
 									          <form class="form-horizontal" role="form" method="POST" action="">
                                             <div class="form-body">
                                                                     	
-													<input class="form-control" size="16" type="hidden" name="car_id" value="<?php echo $car_id?>">
+													<input class="form-control" size="16" type="hidden" name="cd_id" value="<?php echo $cd_id?>">
                                                 
 												<div class="form-group">
-                                                    <label class="col-md-3 control-label">Značka auta</label>
+                                                    <label class="col-md-3 control-label">Názov CD</label>
                                                     <div class="col-md-9">
 													
-													<input class="form-control" size="16" type="text" placeholder="Značka auta" name="car_brand" value="<?php echo $car_brand?>" required>
-                                                        
-													</div>
-														
-                                                </div>
-												<div class="form-group">
-                                                    <label class="col-md-3 control-label">Model</label>
-                                                    <div class="col-md-9">
-													
-													<input class="form-control" size="16" type="text" placeholder="Model" name="car_model" value="<?php echo $car_model?>"  required>
-                                                        
-													</div>
-														
-                                                </div>
-												<div class="form-group">
-                                                    <label class="col-md-3 control-label">7pin</label>
-                                                    <div class="col-md-9">
-													
-													<input class="form-control" size="16" type="text" placeholder="7pin" name="7_pin" value="<?php echo $seven_pin ?>">
+													<input class="form-control" size="16" type="text" placeholder="Názov CD" name="cd_name" value="<?php echo $cd_name?>" required>
                                                         
 													</div>
 														
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label">13pin</label>
+                                                    <label class="col-md-3 control-label">Číslo CD</label>
                                                     <div class="col-md-9">
 													
-													<input class="form-control" size="16" type="text" placeholder="13pin" name="13_pin" value="<?php echo $thirteen_pin ?>"  >
+													<input class="form-control" size="16" type="text" placeholder="Číslo CD" name="cd_number" value="<?php echo $cd_number?>" required>
                                                         
 													</div>
 														
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label">Poradie</label>
+                                                    <label class="col-md-3 control-label">Dátum</label>
                                                     <div class="col-md-9">
 													
-													<input class="form-control" size="16" type="number" placeholder="Poradie" name="car_order" value="<?php echo $car_order?>">
+													<input class="form-control" size="16" type="date" name="cd_date" value="<?php echo $cd_date?>" required>
                                                         
 													</div>
 														
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Zobrazovať text a tlačidlo "Codierung"</label>
+                                                    <div class="col-md-9">
+                                                    <input type="checkbox" id="codierung" name="codierung" value="1" <?php echo $codierung==1?"checked":""?>>
+													</div>
                                                 </div>
                                                                                                                                    
                                             </div>
                                             
                                              <?php 
                                     
-                                                updateRecord();
+                                                updateCD();
 
                                             ?>
                                             
                                             <div class="form-actions right1">
                                                 
-                                                <button type="submit" class="btn blue" name="update_record">Upraviť</button>
+                                                <button type="submit" class="btn blue" name="update_cd">Upraviť</button>
                                             </div>
                                             <div class="form-actions right1">
                                                 

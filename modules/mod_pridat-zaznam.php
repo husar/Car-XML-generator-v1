@@ -9,7 +9,7 @@
  <div class="portlet box blue">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-user"></i> Pridať vozidlo</div>
+                                            <i class="fa fa-car"></i> Pridať vozidlo</div>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse" data-original-title="Zbaliť/Rozbaliť" title=""> </a>
                                             
@@ -63,6 +63,30 @@
 														
                                                 </div>
                                                 <div class="form-group">
+                                                    <label class="col-md-3 control-label">CD</label>
+                                                    <div class="col-md-9">
+													<select name="car_cd" id="car_cd" onchange="showDiv('hidden_div', this)">
+                                                       <option value=""></option>;
+                                                <?php
+                                                        
+                                                    $query = "SELECT * from cd ";
+                                                    $selected_cds = mysqli_query($connect, $query);
+                                                           
+                                                    while($row = mysqli_fetch_array($selected_cds)){
+                                                        
+                                                        echo "<option value=\"".$row['cd_id']."\">".$row['cd_name']."</option>";
+                                                        
+                                                    }
+                                                        
+                                                ?>
+                                                
+												    </select>
+                                                        
+													</div>
+														
+                                                </div>
+                                                
+                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Poradie</label>
                                                     <div class="col-md-9">
 													
@@ -87,3 +111,9 @@
                                 </div>
 						
  </div>
+<!-- <script>
+    function showDiv(divId, element)
+{
+    document.getElementById(divId).style.display = element.value != "" ? 'block' : 'none';
+}
+</script>-->
