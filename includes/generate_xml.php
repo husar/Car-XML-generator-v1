@@ -82,7 +82,6 @@ include "../connect.ini.php";
         $zip->addFile($file_path."image6.png","image6.png");
         $zip->addFile($file_path."text1.xml","text1.xml");
         $zip->addFile($file_path."text2.xml","text2.xml");
-        $zip->addFile($file_path."text7.xml","text7.xml");
         $zip->addFile($file_path."text8.xml","text8.xml");
         $zip->addFile($file_path."text9.xml","text9.xml");
         $zip->addFile($file_path."text11.xml","text11.xml");
@@ -163,31 +162,75 @@ include "../connect.ini.php";
         }
         
         /*doplnenie zvysku dat z danych suborov do suboru product.xml*/
-        $current .= "<text unique=\"64945128\" type=\"text\" name=\"11501017\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
+        $query = "SELECT * FROM cd WHERE cd_id = ".$_GET['cd_id'];
+        $selected_cd = mysqli_query($connect,$query);
+        $cd = mysqli_fetch_array($selected_cd);
+        $current .= "<text unique=\"64945128\" type=\"text\" name=\"".$cd['cd_number']."\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
           <center x=\"490\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
           <size width=\"71\" height=\"20\"/>
           <attachment-richtextbuffer name=\"text7.xml\"/>
         </text>";
-        $current .= "<text unique=\"64939928\" type=\"text\" name=\"08.05.20\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
+        $file_name = "files/static_files/text7.xml";
+        
+        if($handle = fopen($file_name, 'w')){
+
+            fwrite($handle,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">
+  <paragraphlayout textcolor=\"#000000\" fontsize=\"9\" fontstyle=\"90\" fontweight=\"90\" fontunderlined=\"0\" fontface=\"Arial\" alignment=\"0\" leftindent=\"0\" leftsubindent=\"0\" rightindent=\"0\" parspacingafter=\"0\" parspacingbefore=\"0\" linespacing=\"0\" bulletstyle=\"0\" bulletnumber=\"0\" parstyle=\"Normal\" tabs=\"\">
+    <paragraph>
+      <text textcolor=\"#FFFFFF\" fontsize=\"9\">".$cd['cd_number']."</text>
+    </paragraph>
+  </paragraphlayout>
+</richtext>");
+            
+            fclose($handle);
+
+        }
+        
+        $zip->addFile("files/static_files/text7.xml","text7.xml");
+        $current .= "<text unique=\"64939928\" type=\"text\" name=\"".date("d.m.y",strtotime($cd['cd_date']))."\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
           <center x=\"560\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
           <size width=\"62\" height=\"20\"/>
           <attachment-richtextbuffer name=\"text8.xml\"/>
         </text>";
-        $current .= "<text unique=\"64940344\" type=\"text\" name=\"Freischaltung / Codierung Set up trailer operation\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
-          <center x=\"130.5\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
-          <size width=\"161\" height=\"28\"/>
-          <attachment-richtextbuffer name=\"text11.xml\"/>
-        </text>";
-        $current .= "<state-button unique=\"64908104\" type=\"aed-state-button-action\" name=\"D / UK\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\" label=\"D / UK\" hint=\"\">
-          <center x=\"124.5\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+100)."\"/>
-          <size width=\"105\" height=\"21\"/>
-          <tags>
-            <button/>
-            <small/>
-          </tags>
-          <skin unique=\"7432667595\" type=\"buttonskin\"/>
-          <action e-mail=\"\" website=\"\" command=\"\" params=\"\" language=\"\" page=\"\" folder=\"\" file=\"87501889 - 12-21500601 CD codierung.pdf\" valid=\"true\" type=\"run-file\" change-page=\"go-back\"/>
-        </state-button>";
+        $file_name = "files/static_files/text8.xml";
+        
+        if($handle = fopen($file_name, 'w')){
+
+            fwrite($handle,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<richtext version=\"1.0.0.0\" xmlns=\"http://www.wxwidgets.org\">
+  <paragraphlayout textcolor=\"#000000\" fontsize=\"9\" fontstyle=\"90\" fontweight=\"90\" fontunderlined=\"0\" fontface=\"Arial\" alignment=\"0\" leftindent=\"0\" leftsubindent=\"0\" rightindent=\"0\" parspacingafter=\"0\" parspacingbefore=\"0\" linespacing=\"0\" bulletstyle=\"0\" bulletnumber=\"0\" parstyle=\"Normal\" tabs=\"\">
+    <paragraph>
+      <text textcolor=\"#FFFFFF\" fontsize=\"9\">".date("d.m.y",strtotime($cd['cd_date']))."</text>
+    </paragraph>
+  </paragraphlayout>
+</richtext>");
+            
+            fclose($handle);
+
+        }
+        
+        $zip->addFile("files/static_files/text8.xml","text8.xml");
+        
+        if($cd['codierung']==1){
+        
+            $current .= "<text unique=\"64940344\" type=\"text\" name=\"Freischaltung / Codierung Set up trailer operation\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\">
+              <center x=\"130.5\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+50)."\"/>
+              <size width=\"161\" height=\"28\"/>
+              <attachment-richtextbuffer name=\"text11.xml\"/>
+            </text>";
+            $current .= "<state-button unique=\"64908104\" type=\"aed-state-button-action\" name=\"D / UK\" coloured=\"true\" rotation=\"0\" visible=\"true\" modified=\"true\" label=\"D / UK\" hint=\"\">
+              <center x=\"124.5\" y=\"".($y_start_position_model+($index * $distance_between_model_y_positions)+100)."\"/>
+              <size width=\"105\" height=\"21\"/>
+              <tags>
+                <button/>
+                <small/>
+              </tags>
+              <skin unique=\"7432667595\" type=\"buttonskin\"/>
+              <action e-mail=\"\" website=\"\" command=\"\" params=\"\" language=\"\" page=\"\" folder=\"\" file=\"87501889 - 12-21500601 CD codierung.pdf\" valid=\"true\" type=\"run-file\" change-page=\"go-back\"/>
+            </state-button>";
+            
+        }
         
         $file_name = "files/footer.txt";
         

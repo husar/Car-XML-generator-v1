@@ -34,6 +34,8 @@ function deleteCD(){
         
        $query = "DELETE FROM cd WHERE cd_id = '".$_POST['cd_id']."'";
        $delete_cd_query = mysqli_query($connect,$query);
+       $query = "DELETE FROM cd_cars WHERE cd_id = '".$_POST['cd_id']."'";
+       $delete_cd_cars_query = mysqli_query($connect,$query);
         
             if(!$delete_cd_query){
                 echo '<div class="alert alert-danger">Údaje sa nepodarilo vymazať.</div>';
@@ -86,7 +88,7 @@ function updateRecord(){
         $update_query = mysqli_query($connect, $query);
                                                     
         if($update_query){
-            echo "<script> location.href='index.php?modul=spravovat-zaznamy'; </script>";
+            echo "<script> location.href='index.php?modul=spravovat-zaznamy&cd_id=".$_GET['cd_id']."'; </script>";
             echo '<div class="alert alert-success">Údaje boli zmenené.</div>';
             
         }else{
@@ -144,6 +146,8 @@ function deleteCar(){
         
        $query = "DELETE FROM cars WHERE car_id = '".$_POST['car_id']."'";
        $delete_car_query = mysqli_query($connect,$query);
+       $query = "DELETE FROM cd_cars WHERE car_id = '".$_POST['car_id']."'";
+       $delete_cd_cars_query = mysqli_query($connect,$query);
         
             if(!$delete_car_query){
                 echo '<div class="alert alert-danger">Údaje sa nepodarilo vymazať.</div>';
