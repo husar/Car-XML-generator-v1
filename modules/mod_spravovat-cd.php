@@ -43,7 +43,7 @@ include "functions.php";
                                                 <tbody>
 												<?php						
 				
-												$query_zaznamy="SELECT * FROM cd ";
+												$query_zaznamy="SELECT * FROM cd ORDER BY cd_name";
 												$apply_zaznamy=mysqli_query($connect,$query_zaznamy);
 												while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){
 												?>

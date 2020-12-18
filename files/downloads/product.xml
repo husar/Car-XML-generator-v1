@@ -9,8 +9,8 @@
         <bounding-box x="0" y="0" width="650" height="900"/>
         <content-box x="0" y="0" width="650" height="900"/>
         <image unique="64805616" type="image" name="&lt;Background&gt;" coloured="true" rotation="0" visible="true">
-          <center x="312" y="131"/>
-        <size width="650" height="262"/>
+          <center x="312" y="143.5"/>
+        <size width="650" height="287"/>
 <tags>
             <background/>
             <theme/>
@@ -126,20 +126,45 @@
               <center x="297.5" y="51"/>
               <size width="83" height="14.4348"/>
               <attachment-richtextbuffer name="text0034.xml"/>
+            </text>
+<state-button unique="1737" type="aed-state-button-action" name="Dacia" coloured="true" rotation="0" visible="true" modified="true" label="Dacia" hint="">
+            <center x="146.5" y="79"/>
+            <size width="87" height="27.4556"/>
+            <tags>
+            <button/>
+            <small/>
+            </tags>
+<skin unique="7432667595" type="buttonskin"/>
+<action e-mail="" website="" command="" params="" language="" page="" folder="" file="7pol\1234567" valid="true" type="run-file" change-page="go-back"/>
+            </state-button>
+<state-button unique="31337" type="aed-state-button-action" name="Dacia" coloured="true" rotation="0" visible="true" modified="true" label="Dacia" hint="">
+          <center x="446.5" y="79"/>
+          <size width="87" height="28.1415"/>
+          <tags>
+            <button/>
+            <small/>
+          </tags>
+          <skin unique="7432667595" type="buttonskin"/>
+          <action e-mail="" website="" command="" params="" language="" page="" folder="" file="13pol\dg846sg" valid="true" type="run-file" change-page="go-back"/>
+        </state-button>
+<text unique="21337" type="text" name="Duster" coloured="true" rotation="0" visible="true" modified="true">
+              <center x="297.5" y="78"/>
+              <size width="83" height="14.4348"/>
+              <attachment-richtextbuffer name="text0037.xml"/>
             </text><text unique="64945128" type="text" name="1" coloured="true" rotation="0" visible="true" modified="true">
-          <center x="490" y="128"/>
+          <center x="490" y="155"/>
           <size width="71" height="20"/>
           <attachment-richtextbuffer name="text7.xml"/>
         </text><text unique="64939928" type="text" name="09.01.21" coloured="true" rotation="0" visible="true" modified="true">
-          <center x="560" y="128"/>
+          <center x="560" y="155"/>
           <size width="62" height="20"/>
           <attachment-richtextbuffer name="text8.xml"/>
         </text><text unique="64940344" type="text" name="Freischaltung / Codierung Set up trailer operation" coloured="true" rotation="0" visible="true" modified="true">
-              <center x="130.5" y="128"/>
+              <center x="130.5" y="155"/>
               <size width="161" height="28"/>
               <attachment-richtextbuffer name="text11.xml"/>
             </text><state-button unique="64908104" type="aed-state-button-action" name="D / UK" coloured="true" rotation="0" visible="true" modified="true" label="D / UK" hint="">
-              <center x="124.5" y="178"/>
+              <center x="124.5" y="205"/>
               <size width="105" height="21"/>
               <tags>
                 <button/>
@@ -156,6 +181,6 @@
         </xdata>
       </document>
     </page>
-  </pages>  <clientsize width="620" height="262"/>
+  </pages>  <clientsize width="620" height="287"/>
   <translations/>
 </product>
