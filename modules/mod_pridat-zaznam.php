@@ -2,7 +2,9 @@
 <br>
 <br>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
 
 <div class="page-content">
 
@@ -23,7 +25,7 @@
 
                                 ?>
                                       
-                                       <form class="form-horizontal" role="form" method="POST" action="">
+                                       <form class="form-horizontal" role="form" method="POST" >
                                             <div class="form-body">
                                                 
 												<div class="form-group">
@@ -65,7 +67,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">CD</label>
                                                     <div class="col-md-9">
-													<select name="car_cd" id="car_cd" onchange="showDiv('hidden_div', this)">
+													<select name="car_cd[]" id="car_cd" multiple class="chosen-select form-control" placeholder="Vyber CD" width=50>
                                                        <option value=""></option>;
                                                 <?php
                                                         
@@ -111,9 +113,10 @@
                                 </div>
 						
  </div>
-<!-- <script>
-    function showDiv(divId, element)
-{
-    document.getElementById(divId).style.display = element.value != "" ? 'block' : 'none';
-}
-</script>-->
+ <script>
+    
+     $(".chosen-select").chosen({
+        no_results_text: "Oops, nothing found!"
+     })
+    
+</script>

@@ -107,29 +107,41 @@ function insertRecord(){
         $car_model = mysqli_real_escape_string($connect,$_POST['car_model']);
         $seven_pin = mysqli_real_escape_string($connect,$_POST['7_pin']);
         $thirteen_pin = mysqli_real_escape_string($connect,$_POST['13_pin']);
-        $cd_id = $_POST['car_cd'];
         $car_order = $_POST['car_order'];
 
         $query = "INSERT INTO cars (car_brand, car_model, 7_pin, 13_pin, car_order) ";
         $query .= "VALUES ('".$car_brand."', '".$car_model."', '".$seven_pin."', '".$thirteen_pin."', ".$car_order.") ";
         $insert_car_query = mysqli_query($connect, $query);
 
-        if($insert_car_query){
+        if($insert_car_query && isset($_POST['car_cd'])){
             
-            if($cd_id != ""){
+           $selectbox1=$_POST['car_cd'];
+           $insertedCDs = array();
+           $query = "SELECT car_id from cars WHERE car_brand='".$car_brand."' AND car_model='".$car_model."' AND 7_pin='".$seven_pin."' AND 13_pin='".$thirteen_pin."' AND car_order=".$car_order." ";
+           $selected_id = mysqli_query($connect, $query);
+           $row = mysqli_fetch_array($selected_id);
+            
+           foreach($selectbox1 as $slct1){    
                 
-                $query = "SELECT car_id from cars WHERE car_brand='".$car_brand."' AND car_model='".$car_model."' AND 7_pin='".$seven_pin."' AND 13_pin='".$thirteen_pin."' AND car_order=".$car_order." ";
-                $selected_id = mysqli_query($connect, $query);
-                $row = mysqli_fetch_array($selected_id);
                 $query = "INSERT INTO cd_cars (car_id, cd_id) ";
-                $query .= "VALUES ('".$row['car_id']."', '".$cd_id."') ";
+                $query .= "VALUES ('".$row['car_id']."', '".$slct1."') ";
                 $insert_car_cd_query = mysqli_query($connect, $query);
-                
-            }
-                                            
+               
+                if($insert_car_cd_query){
+                    
+                    array_push($groupInserted,true);
+                    
+                }
+               
+           }
+            
+        }
+        if($insert_car_query && !in_array(false,$insertedCDs)){
+            
             echo '<div class="alert alert-success">Údaje boli zaznamenané.</div>';
             
-        }else{
+        }
+        else{
 
             die('QUERY FAILED '.mysqli_error($connect));
             echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';

@@ -1,11 +1,34 @@
 <div class="page-content">
 <?php
     
-include "functions.php";    
+include "functions.php"; 
+    
+ob_start();
 
 ?>
 <br>
 <br>
+<?php
+                                                                                 
+    if(isset($_POST['deleteCarFromCD']) && $_POST['on_cd_id'] != ""){
+
+        $deleteCarFromCDQuery="DELETE FROM cd_cars WHERE cd_id = ".$_POST['on_cd_id']." AND car_id = ".$_POST['car_id']."";
+
+        mysqli_query($connect,$deleteCarFromCDQuery);
+        unset($_POST['deleteCarFromCD']);
+                                                                    
+    }     
+                                                    
+    if(isset($_POST['addCarToCD']) && $_POST['not_on_cd_id'] != ""){
+
+        $insertCarToCDQuery="INSERT INTO cd_cars (cd_id, car_id) VALUES (".$_POST['not_on_cd_id'].", ".$_POST['car_id'].")";
+
+        mysqli_query($connect,$insertCarToCDQuery);
+        unset($_POST['addCarToCD']);
+                                                                                                                                        
+    }
+
+?>
  
 <?php include "includes/edit_car.php" ?>
 
@@ -133,20 +156,9 @@ include "functions.php";
                                                                     
                                                                     ?>
                                                                 </select>
-                                                                <button type="submit" class="btn"  title="Pridať záznam" data-toggle="modal" data-target="#deleteModal" name="deleteCarFromCD" formaction="index.php?modul=spravovat-zaznamy"><i class="fa fa-times" aria-hidden="true"></i>
+                                                                <button type="submit" class="btn"  title="Pridať záznam" data-toggle="modal" data-target="#deleteModal" name="deleteCarFromCD" formaction="index.php?modul=spravovat-zaznamy&cd_id=<?php echo $_GET['cd_id'] ?>"><i class="fa fa-times" aria-hidden="true"></i>
                                                                 </button>
                                                             </form>
-                                                            <?php
-                                                                                 
-                                                                if(isset($_POST['deleteCarFromCD']) && $_POST['on_cd_id'] != ""){
-
-                                                                    $deleteCarFromCDQuery="DELETE FROM cd_cars WHERE cd_id = ".$_POST['on_cd_id']." AND car_id = ".$_POST['car_id']."";
-
-                                                                    mysqli_query($connect,$deleteCarFromCDQuery);
-
-                                                                }                                    
-
-                                                            ?>
                                                             </td>
                                                         <td>
                                                             <form action="" style="display:flex" method="post">
@@ -172,7 +184,7 @@ include "functions.php";
                                                                     <option value="<?php echo $cds['cd_id']; ?>"><?php echo $cds['cd_name']; ?></option>
                                                                     <?php } ?>
                                                                 </select>
-                                                                <button type="submit" class="btn"  title="Pridať záznam" data-toggle="modal" data-target="#deleteModal" name="addCarToCD" ><i class="fa fa-check" aria-hidden="true"></i>
+                                                                <button type="submit" class="btn"  title="Pridať záznam" data-toggle="modal" data-target="#deleteModal" name="addCarToCD" ><i class="fa fa-check" aria-hidden="true" formaction="index.php?modul=spravovat-zaznamy&cd_id=<?php echo $_GET['cd_id'] ?>"></i>
                                                                 </button>
                                                             </form>
                                                             
@@ -198,16 +210,7 @@ include "functions.php";
                                             </table>
                                                 <?php
                                                                                  
-                                                                if(isset($_POST['addCarToCD']) && $_POST['not_on_cd_id'] != ""){
-
-                                                                    $insertCarToCDQuery="INSERT INTO cd_cars (cd_id, car_id) VALUES (".$_POST['not_on_cd_id'].", ".$_POST['car_id'].")";
-
-                                                                    mysqli_query($connect,$insertCarToCDQuery);
-                                                                    
-                                                                                 ?>
-                                                                                 <script>location.reload();</script>
-                                                   <?php             }                                    
-
+                                                                
                                                             ?>           
                                         </div>                                       
 									
