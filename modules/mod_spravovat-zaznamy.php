@@ -9,24 +9,9 @@ ob_start();
 <br>
 <br>
 <?php
-                                                                                 
-    if(isset($_POST['deleteCarFromCD']) && $_POST['on_cd_id'] != ""){
-
-        $deleteCarFromCDQuery="DELETE FROM cd_cars WHERE cd_id = ".$_POST['on_cd_id']." AND car_id = ".$_POST['car_id']."";
-
-        mysqli_query($connect,$deleteCarFromCDQuery);
-        unset($_POST['deleteCarFromCD']);
-                                                                    
-    }     
-                                                    
-    if(isset($_POST['addCarToCD']) && $_POST['not_on_cd_id'] != ""){
-
-        $insertCarToCDQuery="INSERT INTO cd_cars (cd_id, car_id) VALUES (".$_POST['not_on_cd_id'].", ".$_POST['car_id'].")";
-
-        mysqli_query($connect,$insertCarToCDQuery);
-        unset($_POST['addCarToCD']);
-                                                                                                                                        
-    }
+    
+    deleteCarFromCD();
+    addCarToCD();
 
 ?>
  
@@ -34,49 +19,7 @@ ob_start();
 
  <div class="portlet box blue">
                                                                 
-    <div class="portlet box blue ">
-                                    <div class="portlet-title">
-                                        <div class="caption">
-                                            <i class="fa fa-search"></i> Vyhľadávanie
-											</div>
-                                      
-                                    </div>
-                                    
-                                    <div class="portlet-body form">
-                                        <form class="form-horizontal" role="form" method="get" >
-                                            <div class="form-body">
-                                                <div class="form-group">
-                                                    
-                                                    <input type="hidden" name="modul" value="spravovat-zaznamy">	
-													
-                                                    <div class="col-md-2">
-                                                    <?php
-                                                    $query_zaznamy="SELECT * FROM cd";
-												    $apply_zaznamy=mysqli_query($connect,$query_zaznamy);
-												    ?>
-                                                    Vybrať CD:
-                                                    <select name="cd_id" class="form-control">
-                                                        <option value=""></option>
-                                                        <?php while($result_zaznamy=mysqli_fetch_array($apply_zaznamy)){?>
-                                                        <option value="<?php echo $result_zaznamy['cd_id'] ?>" <?php echo ($result_zaznamy['cd_id']==$_GET['cd_id'])? 'selected':'' ?>><?php echo $result_zaznamy['cd_name'] ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                    </div>
-                                                </div>
-												
-                                               
-                                            </div>
-                                            <div class="form-actions right1">
-                                                
-                                                <button type="submit" class="btn blue" name="search">Vyhľadať</button>
-                                            </div>
-        
-                                        </form>
-                                    </div>
-                                    
-                                   
-                                    
-                                </div>
+    <?php include "includes/search_car_by_cd.php" ?>
                                                                  
                                <!-- //****************//
                                     //*Bez*parametrov*//
@@ -131,7 +74,7 @@ ob_start();
 														<td> <?php echo $result_zaznamy['car_model']; ?></td>
 														<td> <?php echo $result_zaznamy['7_pin']; ?></td>
 														<td> <?php echo $result_zaznamy['13_pin']; ?></td>
-														<td> <?php echo $result_zaznamy[car_order] ?></td>
+														<td> <?php echo $result_zaznamy['car_order'] ?></td>
                                                         <td><form action="" style="display:flex" method="post">
                                                                <input type="hidden" name="modul" value="spravovat-zaznamy">	
                                                                <input type="hidden" name="car_id" value="<?php echo $result_zaznamy['car_id'] ?>">
@@ -225,62 +168,4 @@ ob_start();
 						
  </div>
  
- <?php if(isset($_GET['car_idFD'])){ ?>
- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">    
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-          <div class="modal-body">
-            Naozaj chcete odstrániť záznam č. <?php echo $_GET['car_idFD'] ?> zo systému?
-          </div>
-          <div class="modal-footer">
-                <form method="post">
-                    <input type="hidden" name="car_id" value="<?php echo $_GET['car_idFD'] ?>">
-                    <button type="submit" name="nothing" class="btn btn-secondary" formaction="index.php?modul=spravovat-zaznamy&cd_id=<?php echo $_GET['cd_id'] ?>">Zrušiť</button>
-                    <button type="submit" name="delete" class="btn btn-primary" formaction="index.php?modul=spravovat-zaznamy&cd_id=<?php echo $_GET['cd_id'] ?>">Vymazať</button>
-                </form>
-          </div>
-    </div>
-  </div>
-</div>
-<?php } ?>
- <script type="text/javascript">
-$(document).ready(function(){
-    $('.modal').modal('show');
-});
-</script>
-
-
-<?php if(isset($_POST['update_record'])){ ?>
- <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">    
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-          <div class="modal-body">
-            Chcete uložiť vykonané zmeny?
-          </div>
-          <div class="modal-footer">
-                <form method="post">
-                    <input type="hidden" name="car_id" value="<?php echo $_POST['car_id'] ?>">
-                    <input type="hidden" name="car_brand" value="<?php echo $_POST['car_brand'] ?>">
-                    <input type="hidden" name="car_model" value="<?php echo $_POST['car_model'] ?>">
-                    <input type="hidden" name="7_pin" value="<?php echo $_POST['7_pin'] ?>">
-                    <input type="hidden" name="13_pin" value="<?php echo $_POST['13_pin'] ?>">
-                    <input type="hidden" name="car_order" value="<?php echo $_POST['car_order'] ?>">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='index.php?modul=spravovat-zaznamy&cd_id=<?php echo $_GET['cd_id'] ?>'">Zrušiť</button>
-                    <button type="submit" name="editCar" class="btn btn-primary">Prepísať</button>
-                </form>
-          </div>
-    </div>
-  </div>
- 
-</div>
-<?php } ?>
+<?php include "includes/edit_and_delete_car_modals.php" ?>

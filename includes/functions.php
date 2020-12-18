@@ -2,6 +2,34 @@
 /*
 SEO URL
 */
+function addCarToCD(){
+    global $connect;
+    
+    if(isset($_POST['addCarToCD']) && $_POST['not_on_cd_id'] != ""){
+
+        $insertCarToCDQuery="INSERT INTO cd_cars (cd_id, car_id) VALUES (".$_POST['not_on_cd_id'].", ".$_POST['car_id'].")";
+
+        mysqli_query($connect,$insertCarToCDQuery);
+        unset($_POST['addCarToCD']);
+                                                                                                                                        
+    }
+    
+}
+
+function deleteCarFromCD(){
+    global $connect;
+    
+    if(isset($_POST['deleteCarFromCD']) && $_POST['on_cd_id'] != ""){
+
+        $deleteCarFromCDQuery="DELETE FROM cd_cars WHERE cd_id = ".$_POST['on_cd_id']." AND car_id = ".$_POST['car_id']."";
+
+        mysqli_query($connect,$deleteCarFromCDQuery);
+        unset($_POST['deleteCarFromCD']);
+                                                                    
+    } 
+    
+}
+
 function updateCD(){
     global $connect;
     
@@ -11,14 +39,21 @@ function updateCD(){
         $update_name = $_POST['cd_name'];
         $update_number = $_POST['cd_number'];
         $update_date = $_POST['cd_date'];
-        $update_codierung = $_POST['codierung'];
+        $update_codierung = 0;
+        
+        if($_POST['codierung'] != ""){
+        
+            $update_codierung = $_POST['codierung'];
+            
+        }
+        
         $query = "UPDATE cd SET cd_name = '".$update_name."', cd_number = '".$update_number."', cd_date = '".$update_date."', codierung = ".$update_codierung." WHERE cd_id = ".$update_cd_id;
         $update_query = mysqli_query($connect, $query);
                                                     
         if($update_query){
             echo "<script> location.href='index.php?modul=spravovat-cd'; </script>";
             echo '<div class="alert alert-success">Údaje boli zmenené.</div>';  
-            // header("Refresh:0");
+            
         }else{
             echo '<div class="alert alert-danger">Údaje sa nepodarilo zaznamenať.</div>';
         }
@@ -88,7 +123,8 @@ function updateRecord(){
         $update_query = mysqli_query($connect, $query);
                                                     
         if($update_query){
-            echo "<script> location.href='index.php?modul=spravovat-zaznamy&cd_id=".$_GET['cd_id']."'; </script>";
+            //echo "<script> location.href='index.php?modul=spravovat-zaznamy&cd_id=".$_GET['cd_id']."'; </script>";
+            echo "<script> location.href='index.php?modul=spravovat-zaznamy&cd_id=".$_POST['cd_id']."'; </script>";
             echo '<div class="alert alert-success">Údaje boli zmenené.</div>';
             
         }else{
